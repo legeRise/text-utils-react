@@ -3,21 +3,40 @@ import React, { useState } from 'react'
 function TextForm(props) {
     const [text, setText] = useState('')
 
+
+    const checkIfEmpty = () => {
+        if (text.trim() === "") {
+            props.showAlert("Please write something", "warning");
+            return true;
+        }
+        return false;
+      
+    }
+    
+
     const handleUpperClick = () => {
+        if (checkIfEmpty()) return;
         let uppertext = text.toUpperCase();
         setText(uppertext)
+        props.showAlert("Converted to UpperCase","success")
     }
 
     const handleLowerClick = () => {
+        if (checkIfEmpty()) return;
         let lowertext = text.toLowerCase();
         setText(lowertext)
+        props.showAlert("Converted to LowerCase","success")
     }
 
     const handleClearClick = () => {
+    if (checkIfEmpty()) return;
         setText("")
+        props.showAlert("Text Cleared!","success")
+        
     }
 
     const handleTitleClick = () => {
+        if (checkIfEmpty()) return;
         let wordsArray = text.split(" ");
         let titletext = ""
         wordsArray.forEach(word => {
@@ -31,6 +50,7 @@ function TextForm(props) {
             }
         });
         setText(titletext)
+        props.showAlert("Converted to TitleCase","success")
     }
 
     const handleOnChange = (event) => {
