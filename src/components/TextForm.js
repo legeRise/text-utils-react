@@ -4,6 +4,9 @@ function TextForm(props) {
     const [text, setText] = useState('')
 
 
+    console.log(props.theme)
+
+
     const checkIfEmpty = () => {
         if (text.trim() === "") {
             props.showAlert("Please write something", "warning");
@@ -57,24 +60,35 @@ function TextForm(props) {
         setText(event.target.value)
     }
 
+    const theme_colors = {
+        light: { color: 'black', backgroundColor : 'white' },
+        dark: { color: 'white', backgroundColor : '#cff4fc' },
+        primary: { color: 'white', backgroundColor : 'white' },
+        success: { color: 'white', backgroundColor : 'white' },
+        danger: { color: 'white', backgroundColor : 'white' }
+      };
+      
 
     return (
         <>
-            <h1 style={{'color' : props.mode === 'dark'? 'white':'black'}}>{props.heading}</h1>
+        <div className='container my-3'>
+            <h1 style={{'color' : theme_colors[props.theme].color}}>{props.heading}</h1>
             <div>
                 <div className="mb-1">
-                    <textarea className="form-control" id="textbox" rows="8" value={text} onChange={handleOnChange}></textarea>
+                    <textarea className="form-control" id="textbox" rows="8" value={text} onChange={handleOnChange} 
+                    style={{'backgroundColor' : theme_colors[props.theme].backgroundColor}}></textarea>
                 </div>
             </div>
             <div className="container d-flex justify-content-end" >
-                <p className='mx-3' style={{'color' : props.mode === 'dark'? 'white':'black'}}> Number of Characters: {text.length}</p>
-                <p style={{'color' : props.mode === 'dark'? 'white':'black'}}> Number of Words: {text.split(" ").length -1}</p>
+                <p className='mx-3' style={{'color' : theme_colors[props.theme].color}}> Number of Characters: {text.length}</p>
+                <p style={{'color' : theme_colors[props.theme].color}}> Number of Words: {text.trim().split(" ").filter(word => word !== "").length}</p>
             </div>
 
-            <button className="btn btn-primary mx-2" onClick={handleUpperClick}>Convert to UpperCase</button>
-            <button className="btn btn-primary mx-2" onClick={handleLowerClick}>Convert to LowerCase</button>
-            <button className="btn btn-primary mx-2" onClick={handleClearClick}>Clear Text</button>
-            <button className="btn btn-primary mx-2" onClick={handleTitleClick}>Conver to TitleCase</button>
+            <button className={`btn btn-${props.theme === 'light'? 'dark' : 'light'} mx-2 my-1`} onClick={handleUpperClick}>Convert to UpperCase</button>
+            <button className={`btn btn-${props.theme === 'light'? 'dark' : 'light'} mx-2 my-1`} onClick={handleLowerClick}>Convert to LowerCase</button>
+            <button className={`btn btn-${props.theme === 'light'? 'dark' : 'light'} mx-2 my-1`} onClick={handleClearClick}>Clear Text</button>
+            <button className={`btn btn-${props.theme === 'light'? 'dark' : 'light'} mx-2 my-1`} onClick={handleTitleClick}>Conver to TitleCase</button>
+        </div>
         </>
     )
 }
