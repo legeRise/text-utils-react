@@ -81,8 +81,8 @@ function TextForm(props) {
             </div>
             <div className="container d-flex justify-content-end" >
                 <p className='mx-3' style={{'color' : theme_colors[props.theme].color}}> Number of Characters: {text.length}</p>
-                <p style={{'color' : theme_colors[props.theme].color}}> Number of Words: {text.trim().split(" ").filter(word => word !== "").length}</p>
-            </div>
+                <p style={{'color' : theme_colors[props.theme].color}}> Number of Words: {text.trim().split(/\s+/).filter(word => word !== "").length}</p>
+            </div>                                      
 
             <button className={`btn btn-${props.theme === 'light'? 'dark' : 'light'} mx-2 my-1`} onClick={handleUpperClick}>Convert to UpperCase</button>
             <button className={`btn btn-${props.theme === 'light'? 'dark' : 'light'} mx-2 my-1`} onClick={handleLowerClick}>Convert to LowerCase</button>
